@@ -26,5 +26,36 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
       template: "Test string"
     })
     .state("about", {
+      url: "/about",
+      views: {
+        // the main template will be placed here (relatively named)
+        "": { templateUrl: "views/about.html"},
+        // the child view (absolutely named)
+        "columnOne@about": { template: "I am a column one!" },
+        // this child will have more complex template in separate file,
+        // and a separate controller
+        "columnTwo@about": {
+          templateUrl: "table-data.html",
+          controller: "scotchController"
+        }
+      }
     })
-})
+}); // closes routerAll.config()
+
+routerApp.controller("scotchController", function($scope) {
+  $scope.message = "Some string";
+  $scope.scotches = [
+    {
+      name: "Macallan 12",
+      price: 50
+    },
+    {
+      name: "Chivas Regal Royal Salute",
+      price: 10000
+    },
+    {
+      name: "Glenfiddich 1937",
+      price: 20000
+    }
+  ];
+});
